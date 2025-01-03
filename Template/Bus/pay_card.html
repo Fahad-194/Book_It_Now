@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Secure Card Payment{% endblock %}
+
+{% block content %}
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;  /* Ensures footer stays at the bottom */
+        }
+
+        .form-container {
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+            width: 100%;
+            margin: auto; /* Center horizontally */
+            flex-grow: 1;  /* Ensures the form takes up space to center vertically */
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .form-container h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.02);
+        }
+
+        button:active {
+            background-color: #388e3c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <div class="form-container">
+        <h1>Secure Payment</h1>
+        <h2>Enter Your Card Details</h2>
+        <form action="{% url 'process_card_payment' booking.id %}" method="POST">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ user.username }}" readonly><br>
+
+            <label for="amount">Amount (tk):</label>
+            <input type="number" id="amount" name="amount" value="{{ total_price }}" readonly>
+
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card_number" placeholder="Enter your card number" required
+                   pattern="\d{16}" maxlength="16" title="Please enter a valid 16-digit card number">
+
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+{% endblock %}

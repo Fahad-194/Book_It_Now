@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6a561a2d-05b0-4e39-b20e-f6fda2588bf1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Book_It_Now.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/Bus_Home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/Cancel_Ticket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/Contact Us.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/booking_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/navbar.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/pay_card.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/payment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/payment_failed.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/payment_success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/search_bus.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Bus/ticket_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/Home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/Log_In.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/Main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/Sign_Up.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/about_us.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/contact_us.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/forgot_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/reset_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/reset_password_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Main/terms_conditions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Train/book_train_ticket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Train/search_train.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/Train/ticket_con_t.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/air/air_home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/air/book_air_ticket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/air/search_air.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/air/ticket_con_air.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/air_routes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/bus_routes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/create_air_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/create_bus_routes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/create_launch_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/create_train_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/delete_air_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/delete_bus_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/delete_launch_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/delete_train_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/employee_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/employee_login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/employee_signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/launch_routes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/train_routes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/update_air_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/update_bus_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/update_launch_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/employee/update_train_route.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/launch/book_launch_ticket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/launch/launch_home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/launch/search_launch.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/launch/ticket_con_launch.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/air_booking_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/bus_booking_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/launch_booking_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/pay_bkash.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/pay_rocket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/payment/train_booking_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/account_deleted_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/confirm_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/delete_account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/profile_management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/share_experience.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/user_forum.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Template/profile/user_profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/prof_logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prof/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prof/signals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/Main_img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/White_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_29.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_31.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_33.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_35.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_37.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_41.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/licensed-image.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/mainlogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photo-collage.png.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/prof_logo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookitnow/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookitnow/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookitnow/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookitnow/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bus/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/bus/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bus/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bus/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bus/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bus/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2q59PiDCgOKLn1qpKc8fS9fCanF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Download/Book_It_Now_Perfect/Book_It_Now/static&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Download\Book_It_Now_Perfect\Book_It_Now\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Download\Book_It_Now_Perfect\Book_It_Now\Template" />
+      <recent name="D:\Download\Book_It_Now_Perfect\Book_It_Now\media" />
+      <recent name="D:\Download\Book_It_Now_Perfect\Book_It_Now\media\profile_pics" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d7ad00fb9fc3-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23726.102" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6a561a2d-05b0-4e39-b20e-f6fda2588bf1" name="Changes" comment="" />
+      <created>1733941548712</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733941548712</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/air/models.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/prof/views.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

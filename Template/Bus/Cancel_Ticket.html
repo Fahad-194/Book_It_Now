@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Cancelled</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Take full height of the viewport */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            width: 100%; /* Ensure navbar spans the entire width */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .username {
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main content (Message) styles */
+        .content {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        /* Card Styles */
+.card {
+    background-color: #E0FBE2; /* Soft cancellation background (light red) */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the card */
+.card:hover {
+    transform: translateY(-5px); /* Lift the card slightly */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for hover */
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+}
+
+
+         /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 22px 0px 15px 0px;
+            margin-top: 40px;
+        }
+        .footer p {
+            margin-bottom: 10px; /* Adds space below the first line */
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            padding: 0 px 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}">
+                <img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo">
+            </a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+            <div class="dropdown help-center">
+                <a href="#">Booking History</a>
+                <div class="dropdown-content">
+                    <a href="#">Air</a>
+                    <a href="#">Bus</a>
+                    <a href="#">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+            <div class="dropdown user">
+                <a href="#">
+                    <div class="profile-info">
+                        {% if request.user.userprofile.profile_picture %}
+                            <img src="{{ request.user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-logo">
+                        {% else %}
+                            <img src="{% static 'prof_logo.jpg' %}" alt="Default Profile Picture" class="profile-logo">
+                        {% endif %}
+                        <span class="username">{{ request.user }}</span>
+                    </div>
+                </a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Profile_Management' %}">Profile</a>
+                    <a href="{% url 'Home' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content (Message) -->
+   <div class="content">
+    <div class="card">
+        <h1>Your ticket has been cancelled successfully!</h1><br>
+        <p>Thank you for using our service.</p><br>
+         <a href="{% url 'booking_history' %}" class="button">View Booking History</a><br>
+         <a href="{% url 'Main' %}" class="button">Go to Main Page</a>
+    </div>
+</div>
+
+
+    <!-- Footer Section -->
+         <div class="footer">
+    <p>
+        <a href="#">About Us</a>|<a href="#">Contact Us</a>
+    </p>
+    <p>
+        <span>&copy; 2025 All Rights Reserved. Book_It_Now</span> <!-- Add the copyright or reserved message -->
+    </p>
+</div>
+</body>
+</html>

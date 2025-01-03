@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+       /* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #E5D4FF;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #2E073F;
+    margin-bottom: 30px;
+}
+
+.info-group {
+    margin-bottom: 25px;
+}
+
+/* Label styles with a fixed color */
+.info-group label {
+    font-weight: bold;
+    color: black; /* Default color for labels */
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+/* Change label color on hover */
+.info-group:hover label {
+    color: #007bff; /* Blue color on hover */
+}
+
+/* Info content styling with light boundary */
+.info-group span {
+    font-size: 16px;
+    color: #555;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    display: block;
+    border: 1px solid #e0e0e0; /* Light boundary around fields */
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for border and box-shadow */
+}
+
+/* Info content hover effect - Highlighting with blue */
+.info-group span:hover {
+    border: 1px solid #007bff; /* Bluish border on hover */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Blue glow effect on hover */
+}
+
+/* Placeholder text styling */
+.info-group span.placeholder {
+    color: #aaa;
+}
+
+/* Profile Picture */
+.profile-pic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid #ddd;
+}
+
+.button-container {
+    text-align: center;
+}
+
+/* Button styling */
+.button-container a {
+    text-decoration: none;
+}
+
+button {
+    background-color: #7A1CAC;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: red;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .profile-pic-container img {
+        width: 100px;
+        height: 100px;
+    }
+}
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="container">
+        <h1>{{ request.user }}'s Profile</h1>
+
+        <!-- Profile Picture Section -->
+        <div class="profile-pic-container">
+            {% if user.userprofile.profile_picture %}
+                <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'prof_logo.jpg' %}" alt="Default Profile Picture">
+            {% endif %}
+        </div>
+
+        <!-- Profile Info Section -->
+        <div class="info-group">
+            <label>Username:</label>
+            <span>{{ user.username }}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Email:</label>
+            <span>{{ user.email }}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Phone Number:</label>
+            <span>{% if user.phone_number %}{{ user.phone_number }}{% else %}Not added yet{% endif %}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Current Password:</label>
+            <span>*********</span>
+        </div>
+
+        <div class="info-group">
+            <label>Bio:</label>
+            <span>{% if user.userprofile.bio %}{{ user.userprofile.bio }}{% else %}Not added yet{% endif %}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Profession:</label>
+            <span>{% if user.userprofile.profession %}{{ user.userprofile.profession }}{% else %}Not added yet{% endif %}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Address:</label>
+            <span>{% if user.userprofile.address %}{{ user.userprofile.address }}{% else %}Not added yet{% endif %}</span>
+        </div>
+
+        <div class="info-group">
+            <label>Journey Choice:</label>
+            <span>{% if user.userprofile.journey_choice %}{{ user.userprofile.journey_choice }}{% else %}Not added yet{% endif %}</span>
+        </div>
+
+        <!-- Edit Profile Button -->
+        <div class="button-container">
+            <a href="{% url 'edit_profile' %}">
+                <button>Edit Profile</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

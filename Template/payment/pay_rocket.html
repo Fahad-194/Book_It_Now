@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Secure Rocket Payment{% endblock %}
+
+{% block content %}
+    <style>
+        /* Global Styles (same as pay_card.html for consistency) */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        .form-container {
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+            width: 100%;
+            margin: auto;
+            flex-grow: 1;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #0D47A1; /* Rocket brand color */
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #0D47A1;
+            outline: none;
+            box-shadow: 0 0 5px rgba(13, 71, 161, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #0D47A1;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0b3c91;
+            transform: scale(1.02);
+        }
+
+        button:active {
+            background-color: #082c6c;
+        }
+    </style>
+
+    <div class="form-container">
+        <h1>Secure Rocket Payment</h1>
+        <form action="{% url 'rocket_payment_process' booking.id %}" method="POST">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ user.username }}" readonly>
+
+            <label for="amount">Amount (tk):</label>
+            <input type="number" id="amount" name="amount" value="{{ total_price }}" readonly>
+
+            <label for="rocket-number">Rocket Number:</label>
+            <input type="text" id="rocket-number" name="phone_number" placeholder="Enter your Rocket number" required
+                   pattern="\d{11}" maxlength="11" title="Please enter a valid 11-digit Rocket number">
+
+            <button type="submit">Pay with Rocket</button>
+        </form>
+    </div>
+{% endblock %}

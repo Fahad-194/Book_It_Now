@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TicketBooking</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #ffffff, #f1f5f9);
+        }
+
+        /* Header */
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 2em 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        /* About Section */
+        .about-section {
+            background: #ffffff;
+            padding: 2em;
+            border-radius: 12px;
+            margin: 1.5em 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-section h2 {
+            color: #0056b3;
+            font-size: 2em;
+            margin-bottom: 0.8em;
+        }
+
+        .about-section p {
+            font-size: 1.2em;
+            margin-bottom: 1.2em;
+            line-height: 1.8;
+        }
+
+        /* Team Section */
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            margin-top: 2em;
+            justify-content: center;
+        }
+
+        .team-member {
+            flex: 1 1 calc(30% - 2em);
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            padding: 1.5em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member h3 {
+            font-size: 1.5em;
+            color: #0056b3;
+            margin-bottom: 0.5em;
+        }
+
+        .team-member p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1.5em 0;
+            margin-top: 2em;
+            font-size: 1em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .team-member {
+                flex: 1 1 100%;
+            }
+
+            .about-section h2 {
+                font-size: 1.6em;
+            }
+
+            .about-section p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <header>
+        <h1>About Us</h1>
+    </header>
+
+    <div class="container">
+        <div class="about-section">
+            <h2>Who We Are</h2>
+            <p>Welcome to <strong>TicketBooking</strong>, your one-stop destination for hassle-free ticket booking for events, concerts, movies, and more. Our mission is to simplify the process of booking tickets, providing you with a seamless and enjoyable experience.</p>
+            <p>Founded in 2024, we are committed to leveraging cutting-edge technology and a customer-centric approach to redefine the ticketing industry.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Values</h2>
+            <p>At <strong>TicketBooking</strong>, we value <em>innovation</em>, <em>reliability</em>, and <em>customer satisfaction</em>. We believe in creating a platform that is both user-friendly and robust, ensuring a memorable experience for every user.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Meet the Team</h2>
+            <div class="team">
+                <div class="team-member">
+                    <img src="{% static 'prof_logo.jpg' %}" alt="Priya Rani Das">
+                    <h3>Priya Rani Das</h3>
+                    <p>Founder & CEO</p>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'prof_logo.jpg' %}" alt="MD Sayed Al Fahad">
+                    <h3>MD Sayed Al Fahad</h3>
+                    <p>Chief Technology Officer</p>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'prof_logo.jpg' %}" alt="Shreya Barai">
+                    <h3>Shreya Barai</h3>
+                    <p>Marketing Head</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 <a href="#">TicketBooking</a>. All rights reserved.</p>
+    </footer>
+</body>
+</html>

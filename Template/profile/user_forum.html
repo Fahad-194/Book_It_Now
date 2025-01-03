@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Forum
+{% endblock %}
+
+{% block content %}
+<script>
+    function react(experienceId, reactionType) {
+        fetch(`/add-reaction/${experienceId}/${reactionType}/`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`like-count-${experienceId}`).textContent = data.like_count;
+                document.getElementById(`dislike-count-${experienceId}`).textContent = data.dislike_count;
+            });
+    }
+</script>
+
+<h1 style="text-align: center; padding: 20px 0px 10px;">User Forum</h1>
+
+<a href="{% url 'share_experience' %}">Share Your Experience</a>
+<div><br>
+    {% for experience in experiences %}
+    <div>
+        <h2>{{ experience.title }}</h2>
+        <p>By {{ experience.user.username }} on {{ experience.created_at|date:"F j, Y" }}</p> <br>
+        <p>{{ experience.description }}</p>
+
+        {% if experience.photo %}
+        <img src="{{ experience.photo.url }}" alt="Travel Photo" style="max-width: 300px;">
+        {% endif %}
+        {% if experience.video %}
+        <video controls style="max-width: 300px;">
+            <source src="{{ experience.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {% endif %}
+
+        <!-- Delete button only for owner -->
+        {% if request.user == experience.user %}
+        <form action="{% url 'delete_experience' experience.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="color:red;">Delete</button>
+        </form>
+        {% endif %}
+
+        <!-- Reaction buttons -->
+        <div>
+            <button onclick="react({{ experience.id }}, 'like')">👍 Like</button>
+            <span id="like-count-{{ experience.id }}">{{ experience.like_count }}</span>
+            <button onclick="react({{ experience.id }}, 'dislike')">👎 Dislike</button>
+            <span id="dislike-count-{{ experience.id }}">{{ experience.dislike_count }}</span>
+        </div>
+
+        <!-- Comments Section -->
+        <div><br>
+            <h3>Comments:</h3>
+            {% for comment in experience.comments.all %}
+            <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
+            {% endfor %}
+            <form method="POST" action="{% url 'add_comment' experience.id %}">
+                {% csrf_token %}
+                <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

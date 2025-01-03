@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Train Ticket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .reservation-box {
+            border: 2px solid #007BFF;
+            background-color: #f2f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+        }
+
+        .reservation-box h2,
+        .reservation-box p {
+            text-align: center;
+            margin: 10px 0;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        input[type="text"], input[type="email"], input[type="number"] {
+            padding: 10px;
+            width: 250px;
+            margin: 5px 0 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Add JavaScript to handle seat class dynamically -->
+    <script>
+        // Function to update the seat class dynamically
+        function updateSeatClass(seatClass) {
+            document.getElementById('seat_class').value = seatClass;
+            // Optionally, you can update available seats or price dynamically
+        }
+    </script>
+
+</head>
+<body>
+{% load static %}
+
+<!-- Header Section -->
+<!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+            <div class="dropdown help-center">
+                <a href="#">Help Center</a>
+                <div class="dropdown-content">
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+<!-- Main Content -->
+<main>
+    <h1>Seat Reservation</h1>
+
+    <!-- Seat Reservation Information Box -->
+    <div class="reservation-box">
+        <h2>Route: {{ route.origin }} to {{ route.destination }}</h2>
+        <p>Departure: {{ route.departure_time }}</p>
+        <p><strong>Seat Class:</strong> {{ seat_class|title }}</p> <!-- Display the selected seat class here -->
+        <p><strong>Available Seats:</strong> {{ available_seats }}</p>
+        <p><strong>Price:</strong> {{ price }} tk</p>
+    </div>
+
+    <!-- Form for reserving the ticket -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Hidden input for dynamically setting seat class -->
+        <input type="hidden" id="seat_class" name="seat_class" value="{{ seat_class }}">
+
+        <label for="name">Your Name:</label>
+    <input type="text" name="name" value="{{ user.username }}"><br>
+
+    <label for="email">Your Email:</label>
+    <input type="email" name="email" value="{{ user.email }}"><br>
+
+        <label for="seats">Number of Seats:</label>
+        <input type="number" name="seats" id="seats" min="1" max="{{ available_seats }}" required><br>
+
+        <button type="submit">Reserve</button>
+    </form>
+
+    <!-- Back Link -->
+    <a href="{% url 'Bus_Home' %}"><b>Back to Home</b></a>
+</main>
+
+<!-- Footer Section -->
+    <!-- Footer -->
+    <div class="footer">
+        <p>About Us | Contact with Us</p>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</body>
+</html>
+
+
+</body>
+</html>

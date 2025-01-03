@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Air Booking History{% endblock %}
+
+{% block content %}
+    <h1>Your Air Booking History</h1>
+
+    {% for booking in bookings %}
+        <div class="booking-card">
+            <p><strong>Route:</strong> {{ booking.route.origin }} to {{ booking.route.destination }}</p>
+            <p><strong>Seats Reserved:</strong> {{ booking.seats_reserved }}</p>
+            <p><strong>Seat Class:</strong> {{ booking.seat_class }}</p>
+            <p><strong>Total Price:</strong> {{ booking.total_price }} tk</p>
+
+            {% if booking.status == 'reserved' %}
+                <a href="{% url 'payment' booking.id %}"><button>Pay</button></a>
+                <a href="{% url 'cancel_ticket' booking.id %}"><button>Cancel Ticket</button></a>
+            {% elif booking.status == 'paid' %}
+                <button disabled>Paid</button>
+            {% elif booking.status == 'canceled' %}
+                <button disabled>Canceled</button>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

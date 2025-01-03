@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management</title>
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+            text-decoration: none;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        /* Profile Management Content */
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 26px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cards-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .card {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+            min-width: 300px;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #f0f8ff;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333; /* Default color */
+            transition: color 0.3s ease;
+        }
+
+        /* Hover effect for each card */
+        .card:hover h3 {
+            color: #007bff;
+        }
+
+        /* Specific colors for each card */
+        .card:nth-child(1) h3 { color: #007bff; }
+        .card:nth-child(2) h3 { color: #28a745; }
+        .card:nth-child(3) h3 { color: #ff851b; }
+        .card:nth-child(4) h3 { color: #17a2b8; }
+        .card:nth-child(5) h3 { color: #6f42c1; }
+        .card:nth-child(6) h3 { color: #65F7BA; }
+        .card:nth-child(7) h3 { color: #ffc107; }
+        .card:nth-child(8) h3 { color: #e83e8c; }
+        .card:nth-child(9) h3 { color: #dc3545; }
+
+        .share-experience {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .share-experience button {
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .share-experience button:hover {
+            background: #0056b3;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+            <div class="dropdown help-center">
+                <a href="#">Help Center</a>
+                <div class="dropdown-content">
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <h1>Welcome, {{ request.user }}</h1>
+    <p class="welcome-message">We’re excited to have you here! Manage your account and explore features below.</p>
+
+    <div class="container">
+        <div class="cards-row">
+            <!-- Each card heading is a link -->
+            <a href="{% url 'user_profile' %}" class="card">
+                <h3>{{request.user}}'s Profile</h3>
+                <p>Update personal details and preferences.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Notifications</h3>
+                <p>Manage notifications and alerts.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Language & Region</h3>
+                <p>Set preferred language and region.</p>
+            </a>
+            <a href="{% url 'booking_history' %}" class="card">
+                <h3>Booking History</h3>
+                <p>View and manage past bookings.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Travel Alerts</h3>
+                <p>Stay updated on travel alerts.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Offers & Discounts</h3>
+                <p>Discover the latest deals.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Settings</h3>
+                <p>Configure account settings.</p>
+            </a>
+            <a href="#" class="card">
+                <h3>Help Center</h3>
+                <p>Click here to get any help</p>
+            </a>
+            <a href="{% url 'delete_account' %}" class="card">
+                <h3>Delete Account</h3>
+                <p>Remove your account permanently.</p>
+            </a>
+        </div>
+
+        <div class="share-experience">
+    <button onclick="window.location.href='{% url 'share_experience' %}'">Share Your Travel Experience</button>
+</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>About Us | Contact Us</p>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</body>
+</html>

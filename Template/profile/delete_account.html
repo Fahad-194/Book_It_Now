@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Account - Confirmation
+{% endblock %}
+
+{% block content %}
+<style>
+    .delete-account-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .delete-account-container h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .delete-account-container p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    .delete-account-container .btn {
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .delete-account-container .btn-danger {
+        background: #dc3545;
+        color: white;
+    }
+
+    .delete-account-container .btn-danger:hover {
+        background: #a71d2a;
+    }
+
+    .delete-account-container .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .delete-account-container .btn-secondary:hover {
+        background: #5a6268;
+    }
+</style>
+
+<div class="delete-account-container">
+    <h1>Delete Account</h1>
+    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
+        <a href="{% url 'Profile_Management' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

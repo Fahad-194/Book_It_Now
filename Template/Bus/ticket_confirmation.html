@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Confirmation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+            text-decoration:none;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration:none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+            text-decoration:none;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration:none;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-box {
+            border: 2px solid #007BFF;
+            background-color: #f2f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+        }
+
+        .confirmation-box h2,
+        .confirmation-box p {
+            margin: 10px 0;
+        }
+
+        .payment-options, .cancel-option {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+       /* Pay Now Button */
+.pay-now {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.pay-now:hover {
+    background-color: green; /* Darker shade of blue for hover */
+}
+
+/* Cancel Ticket Button */
+.cancel-ticket {
+    padding: 10px 20px;
+    background-color:#007BFF; /* Red background for cancel button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.cancel-ticket:hover {
+    background-color: #d32f2f; /* Darker red for hover */
+}
+
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 22px 0px 15px 0px;
+            margin-top: 40px;
+        }
+        .footer p {
+            margin-bottom: 10px; /* Adds space below the first line */
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            padding: 0 px 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+
+<!-- Header Section -->
+<!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+            <div class="dropdown help-center">
+                <a href="#">Booking History</a>
+                <div class="dropdown-content">
+                    <a href="#">Air</a>
+                    <a href="#">Bus</a>
+                    <a href="#">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+<!-- Main Content -->
+<main>
+    <h1>Ticket Confirmation</h1>
+
+    <!-- Confirmation Information Box -->
+    <div class="confirmation-box">
+        <h2>Your Ticket Details</h2>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Route:</strong> {{ route.origin }} to {{ route.destination }}</p>
+        <p><strong>Departure:</strong> {{ route.departure_time }}</p>
+        <p><strong>Status:</strong> {{ booking.status }}</p>
+        <p><strong>Seats Reserved:</strong> {{ booking.seats }}</p>
+        <!-- Display total price calculated in the view -->
+        <p><strong>Total Price:</strong> {{ total_price }} tk </p>
+
+    </div>
+
+
+    <!-- Payment and Cancellation Options -->
+     {% if booking.status == 'reserved' %}
+    <div class="payment-options">
+        <h3>Payment Options</h3>
+       <button class="pay-now" onclick="window.location.href='{% url 'payment' booking.id %}'">Pay Now</button>
+    </div>
+
+    <div class="cancel-option">
+        <h3>If you want to cancel:</h3>
+       <button class="cancel-ticket" onclick="window.location.href='{% url 'cancel_ticket' booking.id %}'">Cancel Ticket</button>
+    </div>
+    {% elif booking.status == 'paid' %}
+        <button disabled>Paid</button>
+    {% elif booking.status == 'canceled' %}
+        <button disabled>Canceled</button>
+    {% endif %}
+</main>
+
+  <!-- Footer Section -->
+         <div class="footer">
+    <p>
+        <a href="#">About Us</a>|<a href="#">Contact Us</a>
+    </p>
+    <p>
+        <span>&copy; 2025 All Rights Reserved. Book_It_Now</span> <!-- Add the copyright or reserved message -->
+    </p>
+</div>
+</body>
+</html>

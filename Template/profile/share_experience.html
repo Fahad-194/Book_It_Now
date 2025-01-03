@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+Share Your Travel Experience
+{% endblock %}
+
+{% block content %}
+<style>
+    .share-experience-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #F4ECF7;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .share-experience-container h1 {
+        font-size: 28px;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .share-experience-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+    }
+
+    .share-experience-container button {
+
+
+        background:#353839;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+         padding: 10px 40px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        align-items: center;
+    }
+
+    .share-experience-container button:hover {
+        background: black;
+    }
+
+    .share-experience-container a {
+        display: inline-block;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .share-experience-container a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="share-experience-container">
+    <h1>Share Your Travel Experience</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Share</button>
+    </form>
+    <a href="{% url 'user_forum' %}">View User Forum</a>
+</div>
+{% endblock %}

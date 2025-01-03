@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book It Now</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ccffcc, #ffffff);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            padding: 0 20px;
+            height: 70px;
+            box-sizing: border-box;
+            position: fixed; /* Fixed navbar */
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            gap: 20px;
+        }
+        .navbar a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #343a40;
+            padding: 0 20px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 70px;
+            font-size: 16px;
+            gap: 8px;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .ls {
+            display: flex;
+            gap: 10px;
+        }
+        .ls a {
+            padding: 8px 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            width: 70px;
+            line-height: 20px;
+            position: relative;
+        }
+        .ls .login {
+            background-color: #28a745;
+        }
+        .ls .signup {
+            background-color: #007bff;
+        }
+        .ls .admin-login {
+            background-color: #ff6347;
+        }
+        .ls .admin-signup {
+            background-color: #ff4500;
+        }
+        .ls {
+            display: flex;
+            gap: 10px;
+        }
+        .ls a {
+            padding: 8px 15px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            width: 70px;
+            line-height: 20px;
+            position: relative;
+        }
+        .ls .login {
+            background-color: #28a745;
+        }
+        .ls .signup {
+            background-color: #007bff;
+        }
+        .ls .admin-login {
+            background-color: #ff6347;
+        }
+        .ls .admin-signup {
+            background-color: #ff4500;
+        }
+
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .content {
+            position: relative;
+            text-align: center;
+            padding: 220px 30px; /* Reduced padding */
+            flex-grow: 1;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+
+        }
+        .content {
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.steps-section {
+    margin-top: 20px; /* Adjust as needed */
+}
+        .content::before {
+        {% load static %}
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110%;
+            background-image: url("{% static 'bg.png' %}");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+
+        /* Steps Section */
+        .steps-section {
+            text-align: center;
+            padding: 25px 50px;
+            background-color: #f9f9f9;
+        }
+
+        .steps-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .steps-section .highlight {
+            color: #28a745; /* Green color */
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 15px;
+        }
+
+        .step {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .step img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 8px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.routes {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.route {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.route img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+        body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 5;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.destinations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 150px;
+  justify-items: center;
+}
+
+.destination {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.destination img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+
+
+
+/* Footer */
+        .footer {
+            background-color: white; /* White background */
+            color: black; /* Black text */
+            padding: 40px 20px 30px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 50px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .footer-section p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: #007bff;
+        }
+
+        .footer-logo {
+            width: 150px;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+        .social-icons {
+    display: flex;
+    justify-content: center; /* Align items horizontally */
+    align-items: center;    /* Align items vertically */
+    gap: 5px;              /* Add spacing between icons */
+    margin-top: 10px;
+}
+
+.social-icons a img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease; /* Add hover animation */
+}
+
+.social-icons a img:hover {
+    transform: scale(1.4); /* Scale up the icons slightly on hover */
+}
+        .social-icons a {
+            color: #000;
+            margin-right: 10px;
+            font-size:;
+            display: inline-block;
+
+
+        .social-icons a:hover {
+            color: #007bff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.8rem;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Additional padding for content due to fixed navbar */
+        .content, .steps-section, .container, section {
+            padding-top: 100px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    {% load static %}
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Home' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+       <div class="nav-links">
+           <a href="{% url 'Log_In' %}?next={% url 'Air_Home' %}"><i class="fas fa-plane"></i> Air</a>
+        <a href="{% url 'Log_In' %}?next={% url 'Bus_Home' %}"><i class="fas fa-bus"></i> Bus</a>
+        <a href="{% url 'Log_In' %}?next={% url 'Train_Home' %}"><i class="fas fa-train"></i> Train</a>
+        <a href="{% url 'Log_In' %}?next={% url 'Launch_Home' %}"><i class="fas fa-ship"></i> Launch</a>
+       </div>
+
+
+        <div class="ls">
+            <div class="dropdown">
+                <a href="#" class="login"><b>Log In</b></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Log_In' %}">User <br>Log In</a>
+                    <a href="{% url 'employee_login' %}">Employee Log In</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="signup"><b>Sign Up</b></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Sign_Up' %}">User Sign Up</a>
+                    <a href="{% url 'employee_signup' %}">Employee Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <br><br><br><br>
+        <h1><span style="color:#3C0753;">The Biggest Online Ticket Booking Platform</span> <span style="color: #0C0C0C;">"Book_It_Now"</span></h1>
+        <br>
+        <h2 style="color: purple;">..“WELCOME”..</h2>
+        <h3>..Your safety and comfort are our top priority..</h3>
+    </div>
+
+    <!-- Steps Section -->
+    <section class="steps-section">
+        <h2>Buy tickets in <span class="highlight">3 easy steps</span></h2>
+        <div class="steps-container">
+            <div class="step">
+                <img src="{% static 'img_7.png' %}" alt="Search Icon">
+                <h3>Search</h3>
+                <p>Choose your origin, destination, journey dates, and search for buses</p>
+            </div>
+            <div class="step">
+                <img src="{% static 'img_12.png' %}" alt="Select Icon">
+                <h3>Select</h3>
+                <p>Select your desired trip and choose your seats</p>
+            </div>
+            <div class="step">
+                <img src="{% static 'img_10.png' %}" alt="Pay Icon">
+                <h3>Pay</h3>
+                <p>Pay by bank cards or mobile banking</p>
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <h1>Frequently Traveled Bus Routes</h1>
+    <div class="routes">
+      <div class="route">
+        <img src="{% static 'img_13.png' %}" alt="Dhaka to Cox's Bazar">
+        <div class="caption">Dhaka to Cox's Bazar</div>
+      </div>
+      <div class="route">
+        <img src="{% static 'img_14.png' %}" alt="Dhaka to Rajshahi">
+        <div class="caption">Dhaka to Rangamati</div>
+      </div>
+      <div class="route">
+        <img src="{% static 'img_15.png' %}" alt="Dhaka to Barisal">
+        <div class="caption">Dhaka to Sylhet</div>
+      </div>
+    </div>
+  </div>
+
+
+<section style="margin-bottom: 0px;margin-top: 0px;" >
+         <div class="container">
+    <h1>Trending Flight Destinations</h1>
+    <div class="destinations">
+      <div class="destination">
+        <img src="{% static 'img_16.png' %}" alt="Cox's Bazar">
+        <div class="caption">Cox's Bazar</div>
+      </div>
+         <div class="destination">
+        <img src="{% static 'img_17.png' %}" alt="Chittagong">
+        <div class="caption">Chittagong</div>
+      </div>
+        <div class="destination">
+        <img src="{% static 'img_19.png' %}" alt="Sylhet">
+        <div class="caption">Sylhet</div>
+      </div>
+        <div class="destination">
+        <img src="{% static 'img_18.png' %}" alt="Barisal">
+        <div class="caption">Barisal</div>
+      </div>
+
+
+
+      <div class="destination">
+        <img src="{% static 'img_20.png' %}" alt="Jessore">
+        <div class="caption">Jessore</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Footer -->
+
+  <footer class="footer">
+      <div class="p-3 mb-2 bg-secondary text-white">
+    <div class="footer-content">
+      <div class="footer-section logo-section">
+        <img src="{% static 'mainlogo.png' %}" alt="Book_It_Now logo" class="footer-logo">
+        <p>
+          Book_It_Now.com is a premium online booking portal which allows you to purchase tickets for various bus, launch, airline, & hotel room booking services both internationally & locally across the country.
+        </p>
+      </div>
+      <div class="footer-section company-info">
+        <h3>Company Info</h3>
+        <ul>
+          <li><a href="{% url 'terms' %}">Terms and Conditions</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Privacy Notice</a></li>
+          <li><a href="#">Cancellation Policy</a></li>
+          <li><a href="#">How To Buy Ticket</a></li>
+        </ul>
+      </div>
+      <div class="footer-section about">
+        <h3>About Book_It_Now</h3>
+        <ul>
+          <li><a href="{% url 'about_us' %}">About Us</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+        </ul>
+        <div class="social-icons">
+    <a href="https://www.facebook.com">
+        <img src="{% static 'img_21.png' %}" alt="G-mail" width="30" height="30">
+    </a>
+    <a href="https://www.gmail.com">
+        <img src="{% static 'img_23.png' %}" alt="G-mail" width="30" height="30">
+    </a>
+    <a href="https://www.instagram.com">
+        <img src="{% static 'img_24.png' %}" alt="Instagram" width="30" height="30">
+    </a>
+           <a href="https://www.twitter.com">
+        <img src="{% static 'img_25.png' %}" alt="Twitter" width="30" height="30">
+    </a>
+
+</div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Book_It_Now. All rights reserved. Version 2.0.1</p>
+    </div>
+          </div>
+  </footer>
+</body>
+</html>
+
+
+

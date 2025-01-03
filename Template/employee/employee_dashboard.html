@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Book It Now</title>
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: auto; /* Ensures content can scroll */
+        }
+
+        body::before {
+            {% load static %}
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "Main_img.png" %}') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.6; /* Adjust opacity for better readability */
+            z-index: -1; /* Ensures it's behind the content */
+            pointer-events: none; /* Makes the background non-interactive */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 60px;
+            gap: 80px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo {
+            margin-right: auto; /* This ensures the logo is placed in the left corner */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+        }
+
+        /* Cards section */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .card a {
+            display: inline-block;
+            font-weight: bold;
+            color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card a:hover {
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Profile link in the top-right corner */
+        .profile-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+
+        <div class="dropdown">
+            <a href="#"><b>Services</b></a>
+            <div class="dropdown-content">
+                <a href="#">Flight</a>
+                <a href="{% url 'Bus_Home' %}">Bus</a>
+                <a href="{% url 'Train_Home' %}">Train</a>
+                <a href="#">Launch</a>
+            </div>
+        </div>
+
+      <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="#">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to Employee Dashboard</h1>
+        <p>Manage your work efficiently, and explore travel bookings!</p>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="container">
+        <div class="cards-container">
+            <div class="card">
+                <h3><a href="{% url 'bus_routes' %}">BUS</a></h3>
+                <p>Manage Bus bookings, and help customers with travel needs!</p>
+            </div>
+
+            <div class="card">
+                <h3><a href="{% url 'air_routes' %}">AIR</a></h3>
+                <p>Assist customers with flight bookings and updates!</p>
+            </div>
+
+            <div class="card">
+                <h3><a href="{% url 'train_routes' %}">TRAIN</a></h3>
+                <p>Book train tickets and handle requests for smooth journeys!</p>
+            </div>
+
+            <div class="card">
+                <h3><a href="{% url 'launch_routes' %}">LAUNCH</a></h3>
+                <p>Handle launch bookings and manage customer queries!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile link -->
+    <div class="profile-link">
+        <a href="#">My Profile</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>@2024 All rights reserved by HPTech </p>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</body>
+</html>

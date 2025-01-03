@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TicketBooking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1em;
+        }
+
+        .contact-section {
+            background: #f4f4f4;
+            padding: 2em;
+            border-radius: 8px;
+            margin: 1em 0;
+        }
+
+        .contact-section h2 {
+            color: #0066cc;
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+        }
+
+        .contact-section p {
+            font-size: 1.1em;
+            margin-bottom: 1em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        form input, form textarea, form button {
+            font-size: 1em;
+            margin-bottom: 1em;
+            padding: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+        }
+
+        form button {
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        form button:hover {
+            background-color: #005bb5;
+        }
+
+        .contact-info {
+            margin-top: 2em;
+            padding: 1em;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .contact-info h3 {
+            color: #0066cc;
+            margin-bottom: 0.5em;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+
+    <div class="container">
+        <div class="contact-section">
+            <h2>We'd Love to Hear From You!</h2>
+            <p>Have questions, feedback, or need assistance? Fill out the form below or reach out to us using the provided contact information.</p>
+
+            <form action="/submit-contact-form/" method="post">
+              {% csrf_token %}
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            <p><strong>Email:</strong> support@bookitnow.com</p>
+            <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+            <p><strong>Address:</strong> 74/B, Green Road, Farmgate
+            Dhaka-1205, Bangladesh</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TicketBooking. All rights reserved.</p>
+    </footer>
+</body>
+</html>

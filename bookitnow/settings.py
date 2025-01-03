@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bus.apps.BusConfig',
+    'Main.apps.MainConfig',
+    'employee.apps.EmployeeConfig',
+    'train.apps.TrainConfig',
+    'air.apps.AirConfig',
+    'launch.apps.LaunchConfig',
+    'prof.apps.ProfConfig',
+     'payment.apps.PaymentConfig'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +65,7 @@ ROOT_URLCONF = 'bookitnow.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'Template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,6 +90,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTH_USER_MODEL = 'Main.CustomUser'
+# Authentication Settings
+LOGIN_URL = '/Log_In/'  # Redirects unauthenticated users to the login page
+LOGIN_REDIRECT_URL = '/'  # Redirects users after successful login
+LOGOUT_REDIRECT_URL = '/Log_In/'  # Redirects users after logout
 
 
 # Password validation
@@ -115,9 +132,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+MEDIA_URL='media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+STRIPE_SECRET_KEY = "sk_test_51QS0w7G34mhj7JNfzLeGr8zy13ZhfJFa8Nqq0tBwuY7viIEhVwpkO53DKF9O0HQOycHIC62RspoxEKjcp12IqR2Q00atPImKSg"
+STRIPE_PUBLIC_KEY = "pk_test_51QS0w7G34mhj7JNf1lUd8P6kyG1fyK0n9rILGCfJyWMmY54RG18eLr0xFBhI3NXoxfauyIFML0wd8XNJFh8et72U004wLthAEi"
+

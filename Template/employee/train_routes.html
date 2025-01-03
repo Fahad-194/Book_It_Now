@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking System</title>
+    <style>
+        /* CSS styles same as previously shared */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f9fafb;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 60px;
+            font-size: 17px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+        }
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            margin: 0 10px;
+            font-size: 17px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+            color: white;
+            border-radius: 5px;
+        }
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .navbar .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .navbar .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .navbar .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .navbar .dropdown-content a:hover {
+            background-color: #575757;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 20px;
+        }
+        .block {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .block:first-child {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .block:first-child .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            flex: 1;
+        }
+        .block:first-child .search-box input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .block:first-child .search-box button {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card .card-header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card .card-body {
+            padding: 15px;
+        }
+        .card .card-footer {
+            text-align: center;
+            padding: 10px;
+            background: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+        .card .card-footer a {
+            text-decoration: none;
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .card .card-footer a:hover {
+            background-color: #218838;
+        }
+
+        /* Table styles for Seat Class */
+        .seat-class-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .seat-class-table th, .seat-class-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .seat-class-table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .seat-class-table td {
+            background-color: #f9f9f9;
+        }
+        .seat-class-table td p {
+            margin: 0;
+        }
+
+        .create-route-btn, .update-btn, .delete-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-route-btn:hover, .update-btn:hover, .delete-btn:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+        }
+
+        footer .footer-links img {
+            width: 20px;
+            height: 30px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a href="#"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+            </div>
+            <div class="logo">
+                <a href="{% url 'employee_dashboard' %}">Employee Dashboard</a>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight</a>
+                    <a href="{% url 'Bus_Home' %}">Bus</a>
+                    <a href="{% url 'Train_Home' %}">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="#">Profile</a>
+                <div class="dropdown-content">
+                    <a href="#">Employee Profile</a>
+                    <a href="{% url 'Home' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Button to create new bus route -->
+        <div class="block">
+            <div class="Create_Route">
+                <a href="{% url 'create_train_routes' %}" class="create-route-btn">Create New Train Route</a>
+            </div>
+            <div class="search-box">
+                <input type="text" name="query" placeholder="Search destination...">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+
+        <!-- Second Block: Available Train Routes -->
+        <div class="block routes-block">
+            <h1>Available Train Routes</h1> <br>
+            <div class="card-container">
+                {% for route in routes %}
+                <div class="card">
+                    <div class="card-header">
+                        {{ route.origin }} to {{ route.destination }}
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Departure Time:</strong> {{ route.departure_time }}</p>
+
+                        <!-- Seat Class Table -->
+                        <table class="seat-class-table">
+                            <thead>
+                                <tr>
+                                    <th>Seat Class</th>
+                                    <th>Available Seats</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if route.ac_seats %}
+                                <tr>
+                                    <td>AC Class</td>
+                                    <td>{{ route.ac_seats }}</td>
+                                    <td>{{ route.ac_price }} tk</td>
+                                </tr>
+                                {% endif %}
+                                {% if route.first_class_seats %}
+                                <tr>
+                                    <td>First Class</td>
+                                    <td>{{ route.first_class_seats }}</td>
+                                    <td>{{ route.first_class_price }} tk</td>
+                                </tr>
+                                {% endif %}
+                                {% if route.shovan_chair_seats %}
+                                <tr>
+                                    <td>Shovan Chair</td>
+                                    <td>{{ route.shovan_chair_seats }}</td>
+                                    <td>{{ route.shovan_chair_price }} tk</td>
+                                </tr>
+                                {% endif %}
+                                {% if route.shovan_seats %}
+                                <tr>
+                                    <td>Shovan</td>
+                                    <td>{{ route.shovan_seats }}</td>
+                                    <td>{{ route.shovan_price }} tk</td>
+                                </tr>
+                                {% endif %}
+                                {% if route.shulov_seats %}
+                                <tr>
+                                    <td>Shulov</td>
+                                    <td>{{ route.shulov_seats }}</td>
+                                    <td>{{ route.shulov_price }} tk</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'book_ticket' route.id %}">Book Now</a>
+                        <a href="{% url 'update_train_route' route.id %}" class="update-btn">Update</a>
+                        <a href="{% url 'delete_train_route' route.id %}" class="delete-btn">Delete</a>
+                    </div>
+                </div>
+                {% empty %}
+                    <p>No routes available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Book It Now. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://www.facebook.com/"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"></a>
+            <a href="https://twitter.com/"><img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"></a>
+            <a href="https://www.linkedin.com/"><img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"></a>
+        </div>
+    </footer>
+
+</body>
+</html>

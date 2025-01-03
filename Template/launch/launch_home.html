@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Routes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f9fafb;
+        }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        .block {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+        .block:first-child {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .block:first-child .message-box {
+            background-color: #f1f1f1;
+            padding: 20px 20px;
+            border-radius: 8px;
+            font-size: 25px;
+            color: #333;
+            flex: 1;
+            margin-right: 650px;
+            align-items: center;
+        }
+        .block:first-child .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            flex: 1;
+        }
+        .block:first-child .search-box input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .block:first-child .search-box button {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+         .block:first-child .search-box input[type="text"]:hover {
+    border-color: #007BFF; /* Highlight border color */
+    background-color: #f1f9ff; /* Light background color */
+}
+
+.block:first-child .search-box button {
+    background: #5A32A3; /*purple for button hover */
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+}
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
+            gap: 40px;
+        }
+          .card-container {
+        {% load static %}
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    position: relative; /* Relative positioning to control overlap */
+    background-image: url("{% static 'img_40.png' %}"); /* Add your background image URL here */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the image within the container */
+    padding: 20px; /* Optional padding for better layout */
+}
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card-body label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .card-body select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .info {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f7f7f7;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        .info .not-selected {
+            color: #aaa;
+        }
+        .info .highlighted {
+            color: red;
+            transition: color 2s ease;
+        }
+        .card-footer {
+            text-align: center;
+            padding: 10px;
+            background: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+         /* Hover effect for 'Book Now' button */
+        .card .card-footer a {
+            text-decoration: none;
+            background:#023047;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .card .card-footer a:hover {
+            background-color: #218838;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 40px;
+        }
+        .footer p {
+            margin-bottom: 10px; /* Adds space below the first line */
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            padding: 0 px 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <!-- Navbar -->
+   <!-- Navbar -->
+ <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+            <div class="dropdown help-center">
+                <a href="#">Booking History</a>
+                <div class="dropdown-content">
+                    <a href="#">Air</a>
+                    <a href="#">Bus</a>
+                    <a href="#">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <!-- Main Content -->
+    <main>
+
+        <!-- First Block: Steps and Search -->
+        <div class="block steps-block">
+            <div class="message-box">
+                <strong><h4>Launch Ticket in 3 Easy Steps</h4></strong>
+                <h5>Search ⇨
+                Select ⇨
+                Payment</h5>
+
+            </div>
+
+            <div class="search-box">
+    <form method="GET" action="{% url 'search_launch' %}">
+        <input type="text" name="query" placeholder="Search destination..." required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+        </div>
+
+        <!-- Second Segment: Available Train Routes -->
+        <div class="block">
+            <h1>Available Launch Routes</h1><br>
+            <div class="card-container">
+                {% for route in routes %}
+                <div class="card">
+                    <div class="card-header">
+                        {{ route.origin }} to {{ route.destination }}
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Departure Time:</strong> {{ route.departure_time }}</p>
+
+                        <label for="seat-class-{{ route.id }}">Select Seat Class:</label>
+                        <select id="seat-class-{{ route.id }}" data-route-id="{{ route.id }}" class="seat-class">
+                            <option value="" disabled selected>Click Here to Buy Desirable Ticket</option>
+                            <option value="cabin">Cabin</option>
+                            <option value="ac_chair">AC Chair</option>
+                            <option value="non_ac_chair">Non AC Chair</option>
+                        </select>
+                        <div class="info" id="info-{{ route.id }}">
+                            <p><strong>Available Seats:</strong> <span class="not-selected">Not Selected</span></p>
+                            <p><strong>Price:</strong> <span class="not-selected">Not Selected</span></p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="javascript:void(0)" class="book-now" data-route-id="{{ route.id }}">Book Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+   <!-- Footer -->
+    <div class="footer">
+    <p>
+        <a href="#">About Us</a>|<a href="#">Contact Us</a>
+    </p>
+    <p>
+        <span>&copy; 2025 All Rights Reserved. Book_It_Now</span> <!-- Add the copyright or reserved message -->
+    </p>
+</div>
+</body>
+</html>
+
+
+    <script>
+        document.querySelectorAll('.seat-class').forEach(select => {
+            select.addEventListener('change', function () {
+                const routeId = this.getAttribute('data-route-id');
+                const seatClass = this.value;
+                const infoBox = document.getElementById(`info-${routeId}`);
+                const bookNowButton = document.querySelector(`.book-now[data-route-id="${routeId}"]`);
+
+                if (seatClass && routeId) {
+                    fetch(`/get_seat_info_launch/${routeId}/${seatClass}/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let availableSeats = data.available_seats;
+                            let price = data.price;
+
+                            infoBox.innerHTML = `
+                                <p><strong>Available Seats:</strong> <span class="highlighted">${availableSeats}</span></p>
+                                <p><strong>Price:</strong> <span class="highlighted">${price}</span></p>
+                            `;
+
+                            const bookNowUrl = `/book_launch_ticket/${routeId}/?seat_class=${seatClass}`;
+                            bookNowButton.href = bookNowUrl;
+                            bookNowButton.style.display = 'block';
+
+                            setTimeout(() => {
+                                const highlightedSpans = infoBox.querySelectorAll('.highlighted');
+                                highlightedSpans.forEach(span => {
+                                    span.classList.remove('highlighted');
+                                });
+                            }, 2500);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching seat info:', error);
+                            infoBox.innerHTML = `
+                                <p><strong>Available Seats:</strong> <span class="highlighted">Error</span></p>
+                                <p><strong>Price:</strong> <span class="highlighted">Error</span></p>
+                            `;
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

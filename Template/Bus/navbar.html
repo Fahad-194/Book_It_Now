@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Box</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 0;
+        }
+
+        .search-container {
+            background: url('your-image-path.jpg') no-repeat center center;
+            background-size: cover;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .search-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .search-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 48%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .input-group input[type="date"] {
+            width: 100%;
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-group label {
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        .toggle-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .search-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <div class="search-box">
+        <h2>Search Your Travel</h2>
+
+        <form method="get" action="{% url 'search_results' %}">
+            <div class="input-group">
+                <input type="text" name="from_location" placeholder="From" required>
+                <input type="text" name="to_location" placeholder="To" required>
+            </div>
+
+            <div class="input-group">
+                <input type="date" name="journey_date" required>
+            </div>
+
+            <div class="toggle-group">
+                <label for="one_way">
+                    <input type="radio" name="trip_type" value="one_way" checked> One Way
+                </label>
+                <label for="round_trip">
+                    <input type="radio" name="trip_type" value="round_trip"> Round Way
+                </label>
+            </div>
+
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

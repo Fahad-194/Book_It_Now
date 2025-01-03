@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Main Content -->
+    <main>
+        <!-- First Block: Steps and Search -->
+        <div class="block steps-block">
+            <div class="message-box">
+                <strong><h4>You searched for: '{{ query }}' </h4></strong>
+            </div>
+            <div class="search-box">
+                <form method="GET" action="{% url 'search_launch' %}">
+                    <input type="text" name="query" placeholder="Search destination..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Second Block: Available Train Routes -->
+        <div class="block routes-block">
+            <h1>Available Launch Routes</h1><br>
+            <div class="card-container">
+                {% for route in routes %}
+                <div class="card">
+                    <div class="card-header">
+                        {{ route.origin }} to {{ route.destination }}
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Departure Time:</strong> {{ route.departure_time }}</p>
+                        <p><strong>Seats Available:</strong> <span class="seats" data-route-id="{{ route.id }}">{{ route.available_seats }}</span></p>
+                        <p><strong>Price:</strong> ${{ route.price }}</p>
+                        <label for="seat-class-{{ route.id }}">Select Seat Class:</label>
+                        <select id="seat-class-{{ route.id }}" data-route-id="{{ route.id }}" class="seat-class">
+                            <option value="" disabled selected>Select Seat Class</option>
+                            <option value="cabin">Cabin</option>
+                            <option value="ac_chair">AC Chair</option>
+                            <option value="non_ac_chair">Chair</option>
+                        </select>
+                        <div class="info" id="info-{{ route.id }}">
+                            <p><strong>Available Seats:</strong> <span class="not-selected">Not Selected</span></p>
+                            <p><strong>Price:</strong> <span class="not-selected">Not Selected</span></p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="javascript:void(0)" class="book-now" data-route-id="{{ route.id }}">Book Now</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No routes available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

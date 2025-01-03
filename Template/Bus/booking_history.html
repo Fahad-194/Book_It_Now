@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking History{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center; font-size: 24px; color: #333; margin-top: 20px;">Your Booking History</h1>
+
+    <div class="booking-container">
+        {% for booking in bookings %}
+            <div class="booking-card">
+                <div class="booking-info">
+                    <p><strong>Route:</strong> {{ booking.route.origin }} to {{ booking.route.destination }}</p>
+                    <p><strong>Seats Reserved:</strong> {{ booking.seats }}</p>
+                    <p><strong>Status:</strong>
+                        <span class="{% if booking.status == 'reserved' %}status-reserved{% elif booking.status == 'paid' %}status-paid{% else %}status-canceled{% endif %}">
+                            {{ booking.status }}
+                        </span>
+                    </p>
+                    <p><strong>Total Price:</strong> {{ booking.total_price }} tk</p>
+                </div>
+
+                <div class="booking-actions">
+                    {% if booking.status == 'reserved' %}
+                        <a href="{% url 'payment' booking.id %}"><button class="pay-btn">Pay</button></a>
+                        <a href="{% url 'cancel_ticket' booking.id %}"><button class="cancel-btn">Cancel Ticket</button></a>
+                    {% elif booking.status == 'paid' %}
+                        <button class="paid-btn" disabled>Paid</button>
+                    {% elif booking.status == 'canceled' %}
+                        <button class="canceled-btn" disabled>Canceled</button>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+<style>
+    /* Container for all the bookings */
+    .booking-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Card style for each booking */
+    .booking-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Styling for booking info text */
+    .booking-info p {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .booking-info strong {
+        color: #4CAF50;
+    }
+
+    /* Highlight the status with colors */
+    .status-reserved {
+        color: orange !important;
+        font-weight: bold;
+    }
+
+    .status-paid {
+        color: green !important;
+        font-weight: bold;
+    }
+
+    .status-canceled {
+        color: red !important;
+        font-weight: bold;
+    }
+
+    /* Actions section for buttons */
+    .booking-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    /* General button styles */
+    button {
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Specific button styles */
+    .pay-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .pay-btn:hover {
+        background-color: #45a049;
+    }
+
+    .cancel-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .cancel-btn:hover {
+        background-color: #e53935;
+    }
+
+    .paid-btn {
+        background-color: #8bc34a;
+        color: white;
+    }
+
+    .canceled-btn {
+        background-color: #d32f2f;
+        color: white;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+</style>

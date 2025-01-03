@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: white
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #C4D7FF; /* Subtle gradient background */
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: red; /* Soft purple */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input,
+        textarea {
+            width: 95%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        select{
+        width: 98.5%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #6A1B9A; /* Purple border */
+            box-shadow: 0 0 8px rgba(106, 27, 154, 0.5); /* Soft glow */
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            background-color: #6A1B9A;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: blue; /* Softer purple on hover */
+            transform: scale(1.05); /* Slightly bigger on hover */
+        }
+
+        img {
+            border-radius: %;
+            margin-bottom: 10px;
+            width: 100%; /* You can adjust this percentage as needed */
+    height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <div class="container">
+        <h1>Edit Profile</h1>
+
+        <!-- Display any error messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Profile Picture -->
+            <div class="form-group">
+                <label>Profile Picture:</label>
+                {% if user.userprofile.profile_picture %}
+                    <div><img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style="max-width: 100px;"></div>
+                {% else %}
+                    <div><img src="{% static 'prof_logo.jpg' %}" alt="Default Profile Picture" style="max-width: 100px;"></div>
+                {% endif %}
+                <input type="file" name="profile_picture" accept="image/*">
+            </div>
+
+            <!-- Username -->
+            <div class="form-group">
+                {{ user_form.username.label_tag }}
+                {{ user_form.username }}
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                {{ user_form.email.label_tag }}
+                {{ user_form.email }}
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                {{ user_form.phone_number.label_tag }}
+                {{ user_form.phone_number }}
+            </div>
+
+            <!-- Bio -->
+            <div class="form-group">
+                <label>Bio:</label>
+                <textarea name="bio">{{ user.userprofile.bio }}</textarea>
+            </div>
+
+            <!-- Profession -->
+            <div class="form-group">
+                <label>Profession:</label>
+                <input type="text" name="profession" value="{{ user.userprofile.profession }}">
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" name="address" value="{{ user.userprofile.address }}">
+            </div>
+
+            <!-- Journey Choice -->
+            <div class="form-group">
+                <label>Journey Choice:</label>
+                <select name="journey_choice">
+                    <option value="Bus" {% if user.userprofile.journey_choice == "Bus" %}selected{% endif %}>Bus</option>
+                    <option value="Train" {% if user.userprofile.journey_choice == "Train" %}selected{% endif %}>Train</option>
+                    <option value="Launch" {% if user.userprofile.journey_choice == "Launch" %}selected{% endif %}>Launch</option>
+                    <option value="Air" {% if user.userprofile.journey_choice == "Air" %}selected{% endif %}>Air</option>
+                </select>
+            </div>
+
+            <!-- Old Password -->
+            <div class="form-group">
+                <label for="old_password">Old Password:</label>
+                <input type="password" name="old_password" id="old_password" required>
+            </div>
+
+            <!-- New Password -->
+            <div class="form-group">
+                <label for="new_password1">New Password:</label>
+                <input type="password" name="new_password1" id="new_password1">
+            </div>
+
+            <!-- Confirm New Password -->
+            <div class="form-group">
+                <label for="new_password2">Confirm New Password:</label>
+                <input type="password" name="new_password2" id="new_password2">
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            const newPassword = document.querySelector("#new_password1");
+            const confirmPassword = document.querySelector("#new_password2");
+            const submitButton = document.querySelector("button[type='submit']");
+
+            form.addEventListener("submit", function(event) {
+                if (newPassword.value !== confirmPassword.value) {
+                    event.preventDefault();  // Prevent form submission
+                    alert("New passwords do not match!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

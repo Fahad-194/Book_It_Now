@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f9fafb;
+        }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 20px;
+        }
+        .block {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .block:first-child {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .block:first-child .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            flex: 1;
+        }
+        .block:first-child .search-box input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .block:first-child .search-box button {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card .card-header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card .card-body {
+            padding: 15px;
+        }
+        .card .card-footer {
+            text-align: center;
+            padding: 10px;
+            background: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+        .card .card-footer a {
+            text-decoration: none;
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .card .card-footer a:hover {
+            background-color: #218838;
+        }
+        .create-route-btn, .update-btn, .delete-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .create-route-btn:hover, .update-btn:hover, .delete-btn:hover {
+            background-color: #0056b3;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+            <div class="dropdown help-center">
+                <a href="#">Help Center</a>
+                <div class="dropdown-content">
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+         <div class="block">
+            <div class="Create_Route">
+                <a href="{% url 'create_bus_routes' %}" class="create-route-btn">Create New Bus Route</a>
+            </div>
+            <div class="search-box">
+                <input type="text" name="query" placeholder="Search destination...">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+
+
+        <!-- Second Block: Available Bus Routes -->
+        <div class="block routes-block">
+            <h1>Available Bus Routes</h1>
+            <div class="card-container">
+                {% for route in routes %}
+                <div class="card">
+                    <div class="card-header">
+                        {{ route.origin }} to {{ route.destination }}
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Departure Time:</strong> {{ route.departure_time }}</p>
+                        <p><strong>Seats Available:</strong> {{ route.available_seats }}</p>
+                        <p><strong>Price:</strong> ${{ route.price }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'book_ticket' route.id %}">Book Now</a>
+                        <a href="{% url 'update_bus_route' route.id %}" class="update-btn">Update</a>
+                        <a href="{% url 'delete_bus_route' route.id %}" class="delete-btn">Delete</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No routes available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+        <!-- Footer -->
+    <div class="footer">
+        <p>About Us | Contact with Us</p>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</body>
+</html>
+
+</body>
+</html>

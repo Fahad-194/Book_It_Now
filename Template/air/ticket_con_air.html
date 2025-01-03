@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Confirmation</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration:none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration:none;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .username {
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30;
+            pointer-events: auto;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar .menu .user {
+            padding-right: 25px;
+        }
+
+        /* Main Content styles */
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-box {
+            border: 2px solid #007BFF;
+            background-color: #f2f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+        }
+
+        .confirmation-box h2,
+        .confirmation-box p {
+            margin: 10px 0;
+        }
+
+        .payment-options, .cancel-option {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">
+        <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+    </div>
+    <div class="menu">
+        <div class="dropdown services">
+            <a href="#">Services</a>
+            <div class="dropdown-content">
+                <a href="#">Flight Booking</a>
+                <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                <a href="#">Train Booking</a>
+                <a href="#">Launch Booking</a>
+            </div>
+        </div>
+
+        <div class="dropdown help-center">
+            <a href="#">Help Center</a>
+            <div class="dropdown-content">
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+
+        <div class="dropdown user">
+            <a href="#">
+                <div class="profile-info">
+                    {% if request.user.userprofile.profile_picture %}
+                        <img src="{{ request.user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-logo">
+                    {% else %}
+                        <img src="{% static 'prof_logo.jpg' %}" alt="Default Profile Picture" class="profile-logo">
+                    {% endif %}
+                    <span class="username">{{ request.user }}</span>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="{% url 'Profile_Management' %}">Profile</a>
+                <a href="{% url 'Home' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<main>
+    <h1>Ticket Confirmation</h1>
+
+    <!-- Confirmation Box -->
+    <div class="confirmation-box">
+        <h2>Your Ticket Details</h2>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Route:</strong> {{ route.origin }} to {{ route.destination }}</p>
+        <p><strong>Departure:</strong> {{ route.departure_time }}</p>
+        <p><strong>Seats Reserved:</strong> {{ seats }}</p>
+        <p><strong>Seat Class:</strong> {{ seat_class|title }}</p>
+        <p><strong>Total Price:</strong> {{ total_price }} tk</p>
+    </div>
+
+    <!-- Payment and Cancellation Options -->
+    <div class="payment-options">
+        <h3>Payment Options</h3>
+               <button class="pay-now" onclick="window.location.href='{% url 'payment' booking_id %}'">Pay Now</button>
+
+    </div>
+
+    <div class="cancel-option">
+        <h3>If you want to cancel:</h3>
+       <button onclick="window.location.href='{% url 'cancel_train_ticket' booking_id %}'">Cancel Ticket</button>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<div class="footer">
+    <p>© 2024 Book It Now. All rights reserved.</p>
+    <a href="#">Facebook</a>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+</div>
+
+</body>
+</html>

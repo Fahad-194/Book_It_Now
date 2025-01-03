@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+        }
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 80px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+            text-decoration:none;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration:none;
+        }
+       .profile-info {
+          display: flex; /* Align items in a row */
+          align-items: center; /* Vertically align items */
+          gap: 10px; /* Space between the profile picture and the username */
+}
+
+        .profile-logo {
+          width: 30px; /* Adjust size of the profile picture */
+          height: 30px; /* Ensure uniform size */
+          border-radius: 50%; /* Make it circular */
+          object-fit: cover; /* Crop the image to fit the circle */
+}
+
+       .username {
+          font-size: 16px; /* Adjust font size */
+          color: white; /* Adjust text color */
+          font-weight: bold;
+}
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 20; /* Ensure dropdown is above everything else */
+            text-decoration:none;
+        }
+
+        .dropdown-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 30; /* Ensure dropdown is above other content */
+            pointer-events: auto; /* Allow clicks */
+            text-decoration:none;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+            text-decoration:none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show the dropdown content when hovering */
+        }
+        .navbar .menu .user {
+            padding-right: 25px; /* Add space between user and the edge */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #F2F9FF;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            color:black;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .payment-option:hover {
+            background-color: #f0f8ff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option img {
+            width: 65px;
+            height: 40px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 8px 0px 8px 0px;
+            margin-top: 20px;
+        }
+        .footer p {
+            margin-bottom: 8px; /* Adds space below the first line */
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            padding: 0 px 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+<!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}"><img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo"></a>
+        </div>
+        <div class="menu">
+            <div class="dropdown help-center">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+
+           <div class="dropdown help-center">
+                <a href="#">Booking History</a>
+                <div class="dropdown-content">
+                    <a href="#">Air</a>
+                    <a href="{% url 'booking_history' %}">Bus</a>
+                    <a href="#">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+
+           <div class="dropdown user">
+    <a href="#">
+    <div class="profile-info">
+        {% if request.user.userprofile.profile_picture %}
+            <img
+                src="{{ request.user.userprofile.profile_picture.url }}"
+                alt="Profile Picture"
+                class="profile-logo"
+            >
+        {% else %}
+            <img
+                src="{% static 'prof_logo.jpg' %}"
+                alt="Default Profile Picture"
+                class="profile-logo"
+            >
+        {% endif %}
+        <span class="username">{{ request.user }}</span>
+    </div>
+</a>
+
+    <div class="dropdown-content">
+        <a href="{% url 'Profile_Management' %}">Profile</a>
+        <a href="{% url 'Home' %}">Logout</a>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <div class="container">
+        <h1>Choose Payment Method</h1>
+        <div class="payment-options">
+            <div class="payment-option" onclick="window.location.href='{% url 'pay_card' booking.id %}'">
+    <span><h2>Credit/Debit Card</h2></span>
+    <img src="{% static 'img_1.png' %}" alt="Card Payment">
+</div>
+
+            <div class="payment-option" onclick="window.location.href='{% url 'pay_bkash' booking.id %}'">
+                <span><h2>bKash</h2></span>
+                <img src="{% static 'img_3.png' %}" alt="bKash Payment">
+            </div>
+            <div class="payment-option" onclick="window.location.href='{% url 'pay_rocket' booking.id %}'">
+                <span><h2>Rocket</h2></span>
+                <img src="{% static 'img_4.png' %}" alt="Rocket Payment">
+            </div>
+        </div>
+        <div class="button-container">
+           <button onclick="window.location.href='{% url 'ticket_confirmation' booking.id %}'">Back to Confirmation</button>
+
+    </div>
+    </div>
+    <!-- Footer -->
+     <div class="footer">
+        <p>
+            <a href="#">About Us</a>|<a href="#">Contact Us</a>
+        </p>
+        <p>
+            <span>&copy; 2025 All Rights Reserved. Book_It_Now</span>
+        </p>
+    </div>
+</body>
+</html>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Book It Now{% endblock %}</title>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full viewport height */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 20px 35px;
+            position: relative;
+            z-index: 10; /* Ensure navbar is above background */
+        }
+
+        .navbar .logo img {
+            width: 47px;
+            height: 42px;
+            text-decoration: none;
+        }
+
+        .navbar .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 40px; /* Adjust gap to maintain equal spacing */
+            align-items: center;
+        }
+
+        .navbar .menu a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .username {
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: red;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main content section */
+        main {
+            flex-grow: 1; /* Makes the main content area expand to fill remaining space */
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 22px 0px 15px 0px;
+            margin-top: auto; /* Push footer to bottom of page */
+        }
+
+        .footer p {
+            margin-bottom: 10px; /* Adds space below the first line */
+        }
+
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            padding: 0px 10px;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'Main' %}">
+                <img src="{% static 'mainlogo.png' %}" alt="Book It Now Logo">
+            </a>
+        </div>
+        <div class="menu">
+            <div class="dropdown services">
+                <a href="{% url 'user_forum' %}">User Forum</a>
+            </div>
+            <div class="dropdown services">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Flight Booking</a>
+                    <a href="{% url 'Bus_Home' %}">Bus Booking</a>
+                    <a href="#">Train Booking</a>
+                    <a href="#">Launch Booking</a>
+                </div>
+            </div>
+            <div class="dropdown help-center">
+                <a href="#">Booking History</a>
+                <div class="dropdown-content">
+                    <a href="#">Air</a>
+                    <a href="#">Bus</a>
+                    <a href="#">Train</a>
+                    <a href="#">Launch</a>
+                </div>
+            </div>
+            <div class="dropdown user">
+                <a href="{% url 'Profile_Management' %}">
+                    <div class="profile-info">
+                        {% if request.user.userprofile.profile_picture %}
+                            <img src="{{ request.user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-logo">
+                        {% else %}
+                            <img src="{% static 'prof_logo.jpg' %}" alt="Default Profile Picture" class="profile-logo">
+                        {% endif %}
+                        <span class="username">{{ request.user }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <main>
+        {% block content %}
+        <!-- Content will be added here by other templates that extend this base. -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>
+            <a href="#">About Us</a>|<a href="#">Contact Us</a>
+        </p>
+        <p>
+            <span>&copy; 2025 All Rights Reserved. Book_It_Now</span>
+        </p>
+    </div>
+
+</body>
+</html>
